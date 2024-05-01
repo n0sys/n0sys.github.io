@@ -2,13 +2,13 @@
 
 ## Topics
 
-- [Tools](/_docs/tools.md)
-- [HowTos](/_docs/howto.md)
-- [Tricks](/_docs/tricks.md)
-- [Guides](/_docs/guides.md)
-- [Learning](/_docs/learning.md)
+- [Tools](/docs/tools.md)
+- [HowTos](/docs/howto.md)
+- [Tricks](/docs/tricks.md)
+- [Guides](/docs/guides.md)
+- [Learning](/docs/learning.md)
 - **Tools Guides**
-    - [Nextjs](_/docs/toolsguides/nextjs.md)
+    - [Nextjs](/docs/toolsguides/nextjs.md)
     - **Python**
-        - [BeautifulSoup](_/docs/toolsguides/python/beautifulsoup.md)
-        - [Scrapy](_/docs/toolsguides/python/scrapy.md)
+        - [BeautifulSoup](/docs/toolsguides/python/beautifulsoup.md)
+        - [Scrapy](/docs/toolsguides/python/scrapy.md)

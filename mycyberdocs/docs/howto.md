@@ -220,18 +220,18 @@
 - Django shell : `python manage.py shell`
 - Create admin : `python manage.py createsuperuser`
 
-### Code
+### Code 
 
 - Render page : `render(request, "html/pages/index.html", args)`
 - Retrieve GET request params : `request.GET.get(PARAM, '')`
 - Retrieve POST request params : `request.POST.get(PARAM, '')`
 - Templating :
-	- Loop dict : `{% for key, value in dict.items %}`
+	- Loop dict : `%} for key, value in dict.items {%`
 - Add css sheet in html : 
 ```django
-{% load static %}
+%} load static {%
 
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+<link rel="stylesheet" href="%} static 'polls/style.css'{%">
 ```
 - Create new urls file : 
 	- Add code to the new file : 
