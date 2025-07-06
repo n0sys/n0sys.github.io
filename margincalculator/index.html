@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin Level Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .initial-inputs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        input[type="number"] {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            width: 140px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .add-button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .add-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 20px 25px;
+            font-size: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .add-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .add-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .add-button:hover::before {
+            left: 100%;
+        }
+        
+        .add-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .dynamic-fields {
+            margin-top: 20px;
+        }
+        
+        .field-pair {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: flex-end;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .field-pair:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .result:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .result h2 {
+            margin: 0 0 15px 0;
+            color: #667eea;
+            font-size: 1.5em;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .result-value {
+            font-size: 2.5em;
+            font-weight: 300;
+            color: #764ba2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Margin Level Calculator</h1>
+        
+        <div class="initial-inputs">
+            <div class="input-group">
+                <label for="input1">Borrowed</label>
+                <input type="number" id="input1" placeholder="Enter amount" step="any">
+            </div>
+            
+            <div class="input-group">
+                <label for="input2">Interest</label>
+                <input type="number" id="input2" placeholder="Enter rate" step="any">
+            </div>
+        </div>
+        
+        <div class="add-button-container">
+            <button class="add-button" onclick="addFieldPair()">+</button>
+        </div>
+        
+        <div class="dynamic-fields" id="dynamicFields">
+        </div>
+        
+        <div class="result hidden" id="result">
+            <h2>Result:</h2>
+            <div class="result-value" id="resultValue">0</div>
+        </div>
+    </div>
+
+    <script>
+        let fieldCounter = 1;
+        
+        function addFieldPair() {
+            const dynamicFields = document.getElementById('dynamicFields');
+            
+            const fieldPair = document.createElement('div');
+            fieldPair.className = 'field-pair';
+            fieldPair.innerHTML = `
+                <div class="input-group">
+                    <label for="amount${fieldCounter}">Amount</label>
+                    <input type="number" id="amount${fieldCounter}" placeholder="Enter amount" step="any" oninput="calculateResult()">
+                </div>
+                
+                <div class="input-group">
+                    <label for="price${fieldCounter}">Price</label>
+                    <input type="number" id="price${fieldCounter}" placeholder="Enter price" step="any" oninput="calculateResult()">
+                </div>
+            `;
+            
+            dynamicFields.appendChild(fieldPair);
+            
+            // Add smooth animation
+            fieldPair.style.opacity = '0';
+            fieldPair.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                fieldPair.style.transition = 'all 0.3s ease';
+                fieldPair.style.opacity = '1';
+                fieldPair.style.transform = 'translateY(0)';
+            }, 10);
+            fieldCounter++;
+            
+            calculateResult();
+        }
+        
+        function calculateResult() {
+            const input1 = parseFloat(document.getElementById('input1').value);
+            const input2 = parseFloat(document.getElementById('input2').value);
+            
+            // Check if initial inputs are filled
+            if (isNaN(input1) || isNaN(input2)) {
+                document.getElementById('result').classList.add('hidden');
+                return;
+            }
+            
+            let allFieldsFilled = true;
+            let sumOfProducts = 0;
+            
+            // Check all dynamic field pairs
+            for (let i = 1; i < fieldCounter; i++) {
+                const amountElement = document.getElementById(`amount${i}`);
+                const priceElement = document.getElementById(`price${i}`);
+                
+                if (amountElement && priceElement) {
+                    const amount = parseFloat(amountElement.value);
+                    const price = parseFloat(priceElement.value);
+                    
+                    if (isNaN(amount) || isNaN(price)) {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                    
+                    sumOfProducts += amount * price;
+                }
+            }
+            
+            // Only show result if all fields are filled
+            if (allFieldsFilled && fieldCounter > 1) {
+                const denominator = input1 + input2;
+                if (denominator !== 0) {
+                    const result = sumOfProducts / denominator;
+                    document.getElementById('resultValue').textContent = result.toFixed(6);
+                    document.getElementById('result').classList.remove('hidden');
+                } else {
+                    document.getElementById('result').classList.add('hidden');
+                }
+            } else {
+                document.getElementById('result').classList.add('hidden');
+            }
+        }
+        
+        // Add event listeners to initial inputs
+        document.getElementById('input1').addEventListener('input', calculateResult);
+        document.getElementById('input2').addEventListener('input', calculateResult);
+    </script>
+</body>
+</html>
